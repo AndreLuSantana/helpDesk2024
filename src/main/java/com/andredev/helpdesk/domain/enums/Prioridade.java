@@ -29,7 +29,7 @@ public enum Prioridade {
 		}
 		
 		for(Prioridade p : Prioridade.values()) {
-			if (cod.equals(p.getCod()))){
+			if (cod.equals(p.getCod())){
 				return p;
 			}
 		}

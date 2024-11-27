@@ -29,17 +29,18 @@ public class Chamado implements Serializable{
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataFechamento = LocalDate.now();
+	
 	private Prioridade prioridade;
 	private Status status;
 	private String titulo;
 	private String observacoes;
 	
 	@ManyToOne
-	@JoinColumn(name = "tecnico_id")
+	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 	
 	@ManyToOne
-	@JoinColumn(name = "cliente_id")
+	@JoinColumn(name = "tecnico_id")
 	private Tecnico tecnico;
 	
 	public Chamado() {

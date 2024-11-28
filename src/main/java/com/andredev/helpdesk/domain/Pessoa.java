@@ -29,14 +29,14 @@ public abstract class Pessoa implements Serializable {
 	protected Integer id;
 	protected String nome;
 	
-	@Column(unique = true)
+	@Column(unique = true)//define que o valor da variável não permite repetições ao percistir no DB
 	protected String cpf;
 	@Column(unique = true)
 	protected String email;
 	protected String senha;
 	
 	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable (name = "PERFIS")
+	@CollectionTable (name = "PERFIS")//Cria uma tabea com a coleção chama PERFIS
 	protected Set<Integer> perfis = new HashSet<>();
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")

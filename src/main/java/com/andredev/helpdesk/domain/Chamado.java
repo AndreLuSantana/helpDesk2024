@@ -15,16 +15,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
-@Entity
+@Entity // amotação que define que a classe é uma entidade para o DB
 public class Chamado implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id //define que a variável é uma ID
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // estabele a geração de um valor unico
 	private Integer id;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	@JsonFormat(pattern = "dd/MM/yyyy") //formata como a data deve ser printada
 	private LocalDate dataAbertura = LocalDate.now();
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
@@ -35,8 +35,8 @@ public class Chamado implements Serializable{
 	private String titulo;
 	private String observacoes;
 	
-	@ManyToOne
-	@JoinColumn(name = "cliente_id")
+	@ManyToOne //relaciomento muitos para um
+	@JoinColumn(name = "cliente_id") //junção com elementos do relacionamento
 	private Cliente cliente;
 	
 	@ManyToOne

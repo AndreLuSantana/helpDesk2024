@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.andredev.helpdesk.domain.Pessoa;
 
-public interface PessoaRepository extends JpaRepository<Pessoa, Integer>{
+public interface PessoaRepository extends JpaRepository<Pessoa, Integer>{ //classe reponsável de relizar a persistencia no DB
 
 	
 }

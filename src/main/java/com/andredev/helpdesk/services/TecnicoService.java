@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.andredev.helpdesk.domain.Pessoa;
 import com.andredev.helpdesk.domain.Tecnico;
@@ -13,6 +14,8 @@ import com.andredev.helpdesk.repositories.PessoaRepository;
 import com.andredev.helpdesk.repositories.TecnicoRepository;
 import com.andredev.helpdesk.services.exceptions.DataIntegrityViolationException;
 import com.andredev.helpdesk.services.exceptions.ObjectNotFoundException;
+
+import jakarta.validation.Valid;
 
 @Service
 public class TecnicoService {
@@ -38,12 +41,22 @@ public class TecnicoService {
 	public Tecnico create(TecnicoDTO objDTO) {
 
 		objDTO.setId(null);
-		
+
 		ValidaPorCPFeEmail(objDTO);
 
 		Tecnico newObj = new Tecnico(objDTO);
 
 		return tecnicoRepository.save(newObj);
+	}
+
+	public Tecnico update(Integer id, @Valid TecnicoDTO objDTO) {
+
+		objDTO.setId(id);
+		Tecnico oldObj = findByid(id);
+		ValidaPorCPFeEmail(objDTO);
+		oldObj = new Tecnico(objDTO);
+
+		return tecnicoRepository.save(oldObj);
 	}
 
 	private void ValidaPorCPFeEmail(TecnicoDTO objDTO) {
@@ -62,4 +75,5 @@ public class TecnicoService {
 			throw new DataIntegrityViolationException("E-mail já cadastrado no sistema.");
 		}
 	}
+
 }

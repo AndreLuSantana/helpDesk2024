@@ -58,6 +58,8 @@ public class TecnicoService {
 
 		return tecnicoRepository.save(oldObj);
 	}
+	
+	
 
 	private void ValidaPorCPFeEmail(TecnicoDTO objDTO) {
 
@@ -74,6 +76,18 @@ public class TecnicoService {
 
 			throw new DataIntegrityViolationException("E-mail já cadastrado no sistema.");
 		}
+	}
+
+	public void delete(Integer id) {
+		
+		Tecnico obj = findByid(id);
+		
+		if(obj.getChamados().size() > 0) {
+			throw new DataIntegrityViolationException("Tecnico selecinado tem chamados vinculados a ele! Não pode ser deletado.");
+		}
+		
+		tecnicoRepository.deleteById(id);
+		
 	}
 
 }

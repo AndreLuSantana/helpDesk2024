@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.andredev.helpdesk.services.exceptions.DataIntegrityViolationException;
+import com.andredev.helpdesk.services.exceptions.DataValidationException;
 import com.andredev.helpdesk.services.exceptions.ObjectNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +26,15 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<StandardError> dataIntegrityViolationException (DataIntegrityViolationException ex, HttpServletRequest request){
 		
 		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Data Integrity Violation.", 
+				ex.getMessage(), request.getRequestURI());
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	}
+	
+	@ExceptionHandler(DataValidationException.class)
+	public ResponseEntity<StandardError> dataValidationException (DataValidationException ex, HttpServletRequest request){
+		
+		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Validation error.", 
 				ex.getMessage(), request.getRequestURI());
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);

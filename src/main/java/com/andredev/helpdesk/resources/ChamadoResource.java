@@ -19,6 +19,8 @@ import com.andredev.helpdesk.domain.DTO.ChamadoDTO;
 import com.andredev.helpdesk.services.ChamadoService;
 
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 @RestController
 @RequestMapping(value = "/chamados")
@@ -51,5 +53,13 @@ public class ChamadoResource {
 		
 		return ResponseEntity.created(uri).build();
 		
+	}
+	
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<ChamadoDTO> update(@PathVariable Integer id,@Valid @RequestBody ChamadoDTO objDTO) {
+		
+		Chamado newObj = chamadoService.update(id, objDTO);
+		
+		return ResponseEntity.ok().body(new ChamadoDTO(newObj));
 	}
 }

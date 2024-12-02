@@ -17,7 +17,7 @@ public class ChamadoDTO implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataAbertura = LocalDate.now();
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDate dataFechamento = LocalDate.now();
+	private LocalDate dataFechamento;
 	@NotNull(message = "O campo PRIORIDADE é obrigadtório.")
 	private Integer prioridade;
 	@NotNull(message = "O campo STATUS é obrigadtório.")
@@ -42,7 +42,7 @@ public class ChamadoDTO implements Serializable {
 		super();
 		this.id = obj.getId();
 		this.dataAbertura = obj.getDataAbertura();
-		this.dataFechamento = obj.getDataAbertura();
+		this.dataFechamento = obj.getDataFechamento();
 		this.prioridade = obj.getPrioridade().getCod();
 		this.status = obj.getStatus().getCodigo();
 		this.titulo = obj.getTitulo();

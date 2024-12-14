@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.andredev.helpdesk.domain.Chamado;
@@ -25,16 +26,18 @@ public class DBService {
 	private ClienteRepository clienteRepository;
 	@Autowired //injeção de dependência
 	private ChamadoRepository chamadoRepository;
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
 	public void instanciaDB() { //metodo que realiza a carga inicial no DB para ateste
 		
-		Tecnico t1 = new Tecnico(null, "André", "294.120.000-22", "andrelusantana@hotmail.com", "123");
+		Tecnico t1 = new Tecnico(null, "André", "294.120.000-22", "andrelusantana@hotmail.com", encoder.encode("123"));
 		t1.addPerfil(Perfil.ADMIN);
-		Tecnico t2 = new Tecnico(null, "Agnes", "808.861.260-88", "andre@hotmail.com", "123");
+		Tecnico t2 = new Tecnico(null, "Agnes", "808.861.260-88", "andre@hotmail.com", encoder.encode("123"));
 		t2.addPerfil(Perfil.ADMIN);
 		
-		Cliente c1 = new Cliente(null, "Karleane", "194.146.530-74", "karleane@hotmail.com", "123");
-		Cliente c2 = new Cliente(null, "Bianca", "141.019.420-56", "karle@hotmail.com", "123");
+		Cliente c1 = new Cliente(null, "Karleane", "194.146.530-74", "karleane@hotmail.com", encoder.encode("123"));
+		Cliente c2 = new Cliente(null, "Bianca", "141.019.420-56", "karle@hotmail.com", encoder.encode("123"));
 		
 		Chamado ch1 = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "Chamado 01", "Primeiro Chamado", c1, t1);
 		Chamado ch2 = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "Chamado 02", "Primeiro Chamado", c2, t2);

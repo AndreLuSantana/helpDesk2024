@@ -1,4 +1,4 @@
-package com.andredev.helpdesk.security;
+	package com.andredev.helpdesk.security;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,9 +34,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			throws AuthenticationException {
 		try {
 			CredenciaisDTO creds = new ObjectMapper().readValue(request.getInputStream(), CredenciaisDTO.class);
-			UsernamePasswordAuthenticationToken autheticationToken = 
+			UsernamePasswordAuthenticationToken authenticationToken = 
 					new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getSenha(), new ArrayList<>());
-			Authentication authentication = authenticationManager.authenticate(autheticationToken);
+			Authentication authentication = authenticationManager.authenticate(authenticationToken);
 			
 			return authentication;
 		} catch (Exception e) {
@@ -51,7 +51,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		
 		String userName = ((UserSS) authResult.getPrincipal()).getUsername();
 		String token = jwtUtil.generateToken(userName);
-		response.setHeader("acess-control-expose-headers", "Authorization");
+		response.setHeader("access-control-expose-headers", "Authorization");	
 		response.setHeader("Authorization", "Bearer " + token);
 	}
 	
@@ -60,18 +60,17 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			AuthenticationException failed) throws IOException, ServletException {
 		
 		response.setStatus(401);
-		response.setContentType("aplication/json");
+		response.setContentType("application/json");
 		response.getWriter().append(json());
 	}
 
 	private CharSequence json() {
 		long date = new Date().getTime();
-		
 		return "{"
-				+ "\"timestamp\": " + date + ", "
+				+ "\"timestamp\": " + date + ", " 
 				+ "\"status\": 401, "
-			    + "\"error\": \"Não Autorizado\", "
+				+ "\"error\": \"Não autorizado\", "
 				+ "\"message\": \"Email ou senha inválidos\", "
-			    + "\"path\": \"/login\"}";
+				+ "\"path\": \"/login\"}";
 	}
 }

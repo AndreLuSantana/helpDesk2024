@@ -1,5 +1,7 @@
 package com.andredev.helpdesk.config;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,12 +22,13 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.andredev.helpdesk.security.JWTAuthenticationFilter;
+import com.andredev.helpdesk.security.JWTAuthorizationFilter;
 //import com.andredev.helpdesk.security.JWTAuthorizationFilter;
 import com.andredev.helpdesk.security.JWTUtil;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity (prePostEnabled = true)
 public class SecurityConfig {
 
     private final JWTUtil jwtUtil;
@@ -50,7 +53,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
             .addFilter(new JWTAuthenticationFilter(authenticationManager, jwtUtil))
-            //.addFilter(new JWTAuthorizationFilter(authenticationManager, jwtUtil, userDetailsService))
+            .addFilter(new JWTAuthorizationFilter(authenticationManager, jwtUtil, userDetailsService))
             .authenticationManager(authenticationManager)
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
@@ -68,6 +71,7 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
+        corsConfiguration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
         return source;

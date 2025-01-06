@@ -16,7 +16,7 @@ public class JWTUtil {
 	private Long expiration;
 	
 	@Value("${jwt.secret}")
-	private static String secret;
+	private String secret;
 	
 	public String generateToken(String email) {
 		
@@ -27,7 +27,7 @@ public class JWTUtil {
 				.compact();
 	}
 
-	public static boolean tokenValido(String token) {
+	public boolean tokenValido(String token) {
 		
 		Claims claims = getClaims(token);
 		
@@ -43,7 +43,7 @@ public class JWTUtil {
 		return false;
 	}
 
-	private static Claims getClaims(String token) {
+	private Claims getClaims(String token) {
 		try {
 			return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody();
 		} catch (Exception e) {
@@ -51,7 +51,7 @@ public class JWTUtil {
 		}
 	}
 
-	public static String getUserName(String token) {
+	public String getUserName(String token) {
 		
 		Claims claims = getClaims(token);
 		

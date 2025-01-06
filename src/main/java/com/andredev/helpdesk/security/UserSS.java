@@ -15,15 +15,15 @@ public class UserSS implements UserDetails{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	private String senha;
 	private String email;
+	private String senha;
 	private Collection<? extends GrantedAuthority> authorities;
 	
-	public UserSS(Integer id, String senha, String email, Set<Perfil> perfis) {
+	public UserSS(Integer id, String email, String senha, Set<Perfil> perfis) {
 		super();
 		this.id = id;
-		this.senha = senha;
 		this.email = email;
+		this.senha = senha;
 		this.authorities = perfis.stream().map(x -> new SimpleGrantedAuthority(x.getDescricao())).collect(Collectors.toSet());
 	}
 

@@ -34,7 +34,7 @@ public class DBService {
 		Tecnico t1 = new Tecnico(null, "André", "294.120.000-22", "andrelusantana@hotmail.com", encoder.encode("123"));
 		t1.addPerfil(Perfil.ADMIN);
 		Tecnico t2 = new Tecnico(null, "Agnes", "808.861.260-88", "andre@hotmail.com", encoder.encode("123"));
-		t2.addPerfil(Perfil.ADMIN);
+		//t2.addPerfil(Perfil.ADMIN);
 		
 		Cliente c1 = new Cliente(null, "Karleane", "194.146.530-74", "karleane@hotmail.com", encoder.encode("123"));
 		Cliente c2 = new Cliente(null, "Bianca", "141.019.420-56", "karle@hotmail.com", encoder.encode("123"));

@@ -21,7 +21,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
 
 	public JWTAuthorizationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil, UserDetailsService userDetailsService) {
 		super(authenticationManager);
-		
 		this.jwtUtil = jwtUtil;
 		this.userDetailsService = userDetailsService;
 	}
@@ -46,8 +45,8 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
 	}	
 
 	private UsernamePasswordAuthenticationToken getAuthentication(String token) {
-		if(JWTUtil.tokenValido(token)) {
-			String userName = JWTUtil.getUserName(token);
+		if(jwtUtil.tokenValido(token)) {
+			String userName = jwtUtil.getUserName(token);
 			UserDetails details = userDetailsService.loadUserByUsername(userName);
 			
 			return new UsernamePasswordAuthenticationToken(details.getUsername(), null, details.getAuthorities() );

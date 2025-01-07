@@ -1,4 +1,4 @@
-package com.andredev.helpdesk.config;
+	package com.andredev.helpdesk.config;
 
 import java.util.Arrays;
 

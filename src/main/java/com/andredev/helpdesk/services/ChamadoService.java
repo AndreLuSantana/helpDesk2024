@@ -50,7 +50,7 @@ public class ChamadoService {
 		Chamado odlObj = findById(id);
 		odlObj = newChamado(objDTO);
 		
-		return chamadoRepository.save(newChamado(objDTO));
+		return chamadoRepository.save(odlObj);
 	}
 	
 	private Chamado newChamado (ChamadoDTO obj) {

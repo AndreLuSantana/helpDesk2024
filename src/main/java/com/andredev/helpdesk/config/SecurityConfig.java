@@ -30,6 +30,8 @@ import com.andredev.helpdesk.security.JWTUtil;
 @EnableMethodSecurity (prePostEnabled = true)
 public class SecurityConfig {
 
+    private static final String[] PUBLIC_MATCHERS = { "/h2-console/**" };
+
     private final JWTUtil jwtUtil;
     private final UserDetailsService userDetailsService;
 
@@ -47,7 +49,7 @@ public class SecurityConfig {
         http 
         	.cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()))
         	.csrf(AbstractHttpConfigurer::disable)
-        	.authorizeHttpRequests(authz -> authz.anyRequest().authenticated())
+        	.authorizeHttpRequests(authz -> authz.anyRequest().authenticated()) 
         	.addFilter(new JWTAuthenticationFilter(authenticationManager, jwtUtil))
         	.addFilter(new JWTAuthorizationFilter(authenticationManager, jwtUtil, userDetailsService))
         	.authenticationManager(authenticationManager)
@@ -61,7 +63,7 @@ public class SecurityConfig {
     			new AntPathRequestMatcher("/css/**"), 
     			new AntPathRequestMatcher("/js/**"), 
     			new AntPathRequestMatcher("/images/**"),
-    			new AntPathRequestMatcher("/h2-console/**") );
+                new AntPathRequestMatcher("/h2-console/**") );
     }
 
     @Bean

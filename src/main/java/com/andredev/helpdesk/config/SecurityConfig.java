@@ -2,7 +2,6 @@
 
 import java.util.Arrays;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,7 +33,6 @@ public class SecurityConfig {
     private final JWTUtil jwtUtil;
     private final UserDetailsService userDetailsService;
 
-    @Autowired
     public SecurityConfig(JWTUtil jwtUtil, UserDetailsService userDetailsService) {
         this.jwtUtil = jwtUtil;
         this.userDetailsService = userDetailsService;
@@ -49,9 +47,7 @@ public class SecurityConfig {
         http 
         	.cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()))
         	.csrf(AbstractHttpConfigurer::disable)
-        	.authorizeHttpRequests(authz -> authz.requestMatchers("/login", "/register")
-        	.permitAll() // Permitir endpoints públicos .anyRequest().authenticated() 
-        	) 
+        	.authorizeHttpRequests(authz -> authz.anyRequest().authenticated())
         	.addFilter(new JWTAuthenticationFilter(authenticationManager, jwtUtil))
         	.addFilter(new JWTAuthorizationFilter(authenticationManager, jwtUtil, userDetailsService))
         	.authenticationManager(authenticationManager)
@@ -64,7 +60,8 @@ public class SecurityConfig {
     	return web -> web.ignoring().requestMatchers( 
     			new AntPathRequestMatcher("/css/**"), 
     			new AntPathRequestMatcher("/js/**"), 
-    			new AntPathRequestMatcher("/images/**") );
+    			new AntPathRequestMatcher("/images/**"),
+    			new AntPathRequestMatcher("/h2-console/**") );
     }
 
     @Bean

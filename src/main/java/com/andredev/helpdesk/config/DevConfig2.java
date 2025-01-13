@@ -10,8 +10,8 @@ import com.andredev.helpdesk.services.DBService;
 import jakarta.annotation.PostConstruct;
 
 @Configuration //classe de configuração
-@Profile("dev") //estabelece o perfil da classe
-public class DevConfig {
+@Profile("dev2") //estabelece o perfil da classe
+public class DevConfig2 {
 
 	@Autowired
 	private DBService dbService;
@@ -20,12 +20,12 @@ public class DevConfig {
 	@Value("${spring.jpa.hibernate.ddl-auto}")
 	private String value;
     
-	@PostConstruct
-    public boolean instanciaDB() {
+	//@PostConstruct
+    //public boolean instanciaDB() {
 		
-		if (value.equals("update")) {
-			this.dbService.instanciaDB();
-		}
-		return false;
-	}
+	//	if (value.equals("update")) {
+	//		this.dbService.instanciaDB();
+	//	}
+	//	return false;
+	//}
 }

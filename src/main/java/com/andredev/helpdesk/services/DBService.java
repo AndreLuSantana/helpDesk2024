@@ -31,12 +31,12 @@ public class DBService {
 
 	public void instanciaDB() { //metodo que realiza a carga inicial no DB para ateste
 		
-		Tecnico t1 = new Tecnico(null, "André", "294.120.000-22", "andrelusantana@hotmail.com", encoder.encode("123"));
+		Tecnico t1 = new Tecnico(null, "André", "817.602.482-15", "andrelsantana@hotmail.com", encoder.encode("123"));
 		t1.addPerfil(Perfil.ADMIN);
 		Tecnico t2 = new Tecnico(null, "Agnes", "808.861.260-88", "andre@hotmail.com", encoder.encode("123"));
 		//t2.addPerfil(Perfil.ADMIN);
 		
-		Cliente c1 = new Cliente(null, "Karleane", "194.146.530-74", "karleane@hotmail.com", encoder.encode("123"));
+		Cliente c1 = new Cliente(null, "Karleane", "009.110.800-40", "karlane@hotmail.com", encoder.encode("123"));
 		Cliente c2 = new Cliente(null, "Bianca", "141.019.420-56", "karle@hotmail.com", encoder.encode("123"));
 		
 		Chamado ch1 = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "Chamado 01", "Primeiro Chamado", c1, t1);

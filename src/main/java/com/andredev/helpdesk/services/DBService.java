@@ -31,7 +31,7 @@ public class DBService {
 
 	public void instanciaDB() { //metodo que realiza a carga inicial no DB para ateste
 		
-		Tecnico t1 = new Tecnico(null, "André", "817.602.482-15", "andrelsantana@hotmail.com", encoder.encode("123"));
+		Tecnico t1 = new Tecnico(null, "André", "817.602.482-15", "andrelusantana@hotmail.com", encoder.encode("123"));
 		t1.addPerfil(Perfil.ADMIN);
 		Tecnico t2 = new Tecnico(null, "Agnes", "808.861.260-88", "andre@hotmail.com", encoder.encode("123"));
 		//t2.addPerfil(Perfil.ADMIN);

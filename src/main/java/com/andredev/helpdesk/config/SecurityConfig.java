@@ -46,26 +46,25 @@ public class SecurityConfig {
         authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
         AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
         
-        http
-            .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()))
-            .csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(authz -> authz
-                .anyRequest().authenticated()
-            )
-            .addFilter(new JWTAuthenticationFilter(authenticationManager, jwtUtil))
-            .addFilter(new JWTAuthorizationFilter(authenticationManager, jwtUtil, userDetailsService))
-            .authenticationManager(authenticationManager)
-            .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        
-        return http.build();
-    }
+        http 
+        	.cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()))
+        	.csrf(AbstractHttpConfigurer::disable)
+        	.authorizeHttpRequests(authz -> authz.requestMatchers("/login", "/register")
+        	.permitAll() // Permitir endpoints públicos .anyRequest().authenticated() 
+        	) 
+        	.addFilter(new JWTAuthenticationFilter(authenticationManager, jwtUtil))
+        	.addFilter(new JWTAuthorizationFilter(authenticationManager, jwtUtil, userDetailsService))
+        	.authenticationManager(authenticationManager)
+        	.sessionManagement(session -> session
+        			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); 
+        return http.build(); 
+        } 
 
-    @Bean
-    WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web.ignoring().requestMatchers(
-            new AntPathRequestMatcher("/h2-console/**")
-        );
+    @Bean WebSecurityCustomizer webSecurityCustomizer() { 
+    	return web -> web.ignoring().requestMatchers( 
+    			new AntPathRequestMatcher("/css/**"), 
+    			new AntPathRequestMatcher("/js/**"), 
+    			new AntPathRequestMatcher("/images/**") );
     }
 
     @Bean

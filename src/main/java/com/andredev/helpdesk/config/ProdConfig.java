@@ -10,7 +10,7 @@ import com.andredev.helpdesk.services.DBService;
 import jakarta.annotation.PostConstruct;
 
 @Configuration //classe de configuração
-@Profile("dev2") //estabelece o perfil da classe
+@Profile("prod") //estabelece o perfil da classe
 public class ProdConfig {
 
 	@Autowired

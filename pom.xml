@@ -86,7 +86,9 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+        <defaultGoal>package</defaultGoal>
     </build>
+
     <repositories> 
         <repository> 
             <id>central</id> 
